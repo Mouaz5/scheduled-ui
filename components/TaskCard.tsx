@@ -3,6 +3,7 @@
 import { Task } from '@/types/task';
 import { Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils'; // Make sure you have this utility
 
 interface TaskCardProps {
   task: Task;
@@ -12,11 +13,11 @@ export function TaskCard({ task }: TaskCardProps) {
   const getStatusColor = (status: Task['status']) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800 hover:bg-green-200';
+        return 'bg-[#47D160] text-white';
       case 'draft':
         return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200';
       case 'archived':
-        return 'bg-red-100 text-red-800 hover:bg-red-200';
+        return 'bg-[#E01E5A] text-white';
       default:
         return 'bg-gray-100 text-gray-800 hover:bg-gray-200';
     }
@@ -48,20 +49,29 @@ export function TaskCard({ task }: TaskCardProps) {
           <p className="text-gray-600 text-xs mb-3 line-clamp-2">
             {task.description}
           </p>
-          <div className="flex items-center space-x-2">
-          <Badge
-            variant="secondary"
-            className={`text-xs px-2 py-1 ${getStatusColor(task.status)}`}
-          >
-            {getStatusLabel(task.status)}
-          </Badge>
-          {task.timer && (
-            <div className="flex items-center space-x-1 text-gray-500">
-              <Clock className="w-3 h-3" />
-              <span className="text-xs">{task.timer}</span>
-            </div>
-          )}
-        </div>
+
+          {/* Status + Timer */}
+          <div className="flex items-center space-x-[10px]">
+            <Badge
+              variant="secondary"
+              className={cn(
+                'text-xs rounded-sm flex items-center justify-center',
+                task.status === 'active'
+                  ? 'w-[46px] h-[18px] pl-[6px] pr-[6px] pb-[1px] gap-[10px]'
+                  : 'px-2 py-1',
+                getStatusColor(task.status)
+              )}
+            >
+              {getStatusLabel(task.status)}
+            </Badge>
+
+            {task.timer && (
+              <div className="flex items-center space-x-1 text-gray-500">
+                <Clock className="w-3 h-3" />
+                <span className="text-xs">{task.timer}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

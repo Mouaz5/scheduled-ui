@@ -26,7 +26,9 @@ export function FilterTabs({ activeFilter, onFilterChange, taskCounts }: FilterT
           className={cn(
             'px-3 py-2 rounded-full text-sm font-medium transition-colors duration-200 whitespace-nowrap',
             activeFilter === tab.key
-              ? 'bg-gray-900 text-white'
+              ? tab.key === 'all'
+                ? 'bg-white text-gray-900 border border-gray-300'
+                : 'bg-gray-900 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           )}
         >

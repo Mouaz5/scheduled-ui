@@ -13,25 +13,34 @@ export function SearchInput({ onSearch, placeholder = "start building smarter so
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(query);
+    if (query.trim()) {
+      onSearch(query);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
-      <div className="flex items-center bg-gray-100 rounded-full px-4 py-3">
-        <Plus className="w-5 h-5 text-gray-400 mr-3" />
+    <form onSubmit={handleSubmit} className="w-[393px]">
+      <div 
+        className="
+          flex items-center gap-2 rounded-full bg-white/40 p-4 
+          backdrop-blur-[40px] 
+          ring-1 ring-black ring-opacity-5
+          shadow-[0_2px_4px_rgba(0,0,0,0.25)]
+        "
+      >
+        <Plus className="h-5 w-5 text-gray-500" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-sm"
+          className="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-500 outline-none"
         />
         <button
           type="button"
-          className="ml-3 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+          className="p-1 text-gray-500 transition-colors hover:text-gray-700"
         >
-          <Mic className="w-5 h-5" />
+          <Mic className="h-5 w-5" />
         </button>
       </div>
     </form>
